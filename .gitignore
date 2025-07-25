@@ -1,0 +1,7 @@
+.vscode
+.idea
+.DS_Store
+*.log
+*.tmp
+*.env
+*__pycahe__
