@@ -1,8 +1,19 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
 
+
+User = get_user_model()
+
+
 class Organizer(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name='organizer',
+        verbose_name=_("Organizer User")
+    )
     name = models.CharField(max_length=100, verbose_name=_("Organizer Name"))
     address = models.CharField(max_length=255, verbose_name=_("Organizer Address"))
 
