@@ -9,11 +9,11 @@ class EventRepositoryImpl(EventRepository):
         self.model = model
 
     def get_all_events(self):
-        qs = self.model.objects.annotate(ticket_count=Count('ticket'))
+        qs = self.model.objects.annotate(ticket_count=Count('tickets'))
         return qs.select_related('organizer').all()
 
     def get_events_by_organizer(self, organizer_id: int):
-        qs = self.model.objects.annotate(ticket_count=Count('ticket'))
+        qs = self.model.objects.annotate(ticket_count=Count('tickets'))
         return qs.filter(organizer_id=organizer_id).select_related('organizer')
 
     def create_event(self, **kwargs):

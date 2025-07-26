@@ -94,8 +94,5 @@ class Ticket(models.Model):
                 check=models.Q(available_quantity__gte=0),
                 name='available_quantity_non_negative'
             ),
-            models.UniqueConstraint(
-                fields=['event', 'ticket_type'],
-                name='unique_event_ticket_type'
-            )
+
         ]

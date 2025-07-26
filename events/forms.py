@@ -1,13 +1,14 @@
-from datetime import datetime
 
+from django.utils import timezone
 from django import forms
 
-from .models import Event
+from .models import Event, Ticket
+
 
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['title', 'description', 'start_date', 'end_date', 'location', 'organizer']
+        fields = ['title', 'description', 'start_date', 'end_date', 'location']
         widgets = {
             'start_date': forms.DateTimeInput(attrs={'type': 'datetime-local', 'placeholder': 'Start Date', 'class': 'form-control'}),
             'end_date': forms.DateTimeInput(attrs={'type': 'datetime-local', 'placeholder': 'End Date', 'class': 'form-control'}),
@@ -22,6 +23,12 @@ class EventForm(forms.ModelForm):
         if start_date and end_date and start_date >= end_date:
             raise forms.ValidationError("End date must be after start date.")
 
-        if start_date and start_date < datetime.now():
+        if start_date and start_date < timezone.now():
             raise forms.ValidationError("Start date cannot be in the past.")
         return cleaned_data
+
+
+class TicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['price', 'available_quantity', 'ticket_type']
